@@ -3,18 +3,26 @@
 #include <sys/wait.h>
 #include <iostream>
 #include <string>
-
+#include <fstream>
 using namespace std;
 
 string getDoc();
 int main(int argc, const char* argv[]) {
   bool inProgram = true;
-  string str(getDoc());
-  cout << "Document: " << str << endl;
-
+  ifstream filestream;
+    //string str(getDoc());
+  
   while(inProgram) {
     int count = 0;
-    
+    filestream.open("document.txt");
+    string line;
+    string str = "";
+    while(getline(filestream, line)) {
+      str += line;
+    }
+    filestream.close(); 
+    cout << "Document: " << str << endl;
+
     cout << "Enter the string to replace: ";
     string replace;
     cin >> replace;
@@ -35,14 +43,18 @@ int main(int argc, const char* argv[]) {
     wait(NULL);
     if(pid == 0) {
       size_t loc = str.find(replace);
-      cout << str << endl;
+      
       while(loc != string::npos) {
         str.replace(loc, replace.length(), replaceWith);
         count ++;
         loc = str.find(replace);
       }
-      cout << str << endl;
-      cout << "Replaced " << replace << " with " << replaceWith << " " << count << " times." << endl;
+      cout << "Replaced " << replace << " with " 
+        << replaceWith << " " << count << " times." << endl;
+      ofstream writeStream;
+      writeStream.open("document.txt");
+      writeStream << str;
+      writeStream.close();
       inProgram = false;
     } else if (pid > 0 ) {
     } else {
