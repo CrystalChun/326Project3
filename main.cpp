@@ -13,7 +13,6 @@ string getDocument();
 int main(int argc, const char* argv[]) {
     bool inProgram = true;
     
-       
     while(inProgram) {
                 
         string str = getDocument();
@@ -55,6 +54,10 @@ int main(int argc, const char* argv[]) {
 /** 
  * Replaces the specified string with the given replaceWith
  * string in the specified document.
+ * @param document The string representation of the document.
+ * @param replace The string to be replaced in the document.
+ * @param replaceWith The string that's replacing the specified
+ *      replace string.
  */
 void replaceString(string document, string replace, string replaceWith) {
     size_t loc = document.find(replace);
@@ -70,6 +73,7 @@ void replaceString(string document, string replace, string replaceWith) {
     while(count == 0) {
       cout << "." << endl;
     }
+
     cout << "Replaced " << replace << " with " 
       << replaceWith << " " << count << " times." << endl;
 
@@ -77,6 +81,8 @@ void replaceString(string document, string replace, string replaceWith) {
 }
 /**
  * Writes the specified document to file.
+ * @param document The string object of the document
+ *      to be written to file.
  */ 
 void write(string document) {
     // Writes the changes to document
@@ -90,11 +96,13 @@ void write(string document) {
 /**
  * Reads the document from file and returns a
  * string of its contents.
+ * @ return A string representation of the document.
  */
 string getDocument() {
     ifstream filestream;
     string line; 
     string str = "";
+
     filestream.open("document.txt");
     
     // Reads every line in the document
@@ -102,5 +110,6 @@ string getDocument() {
       str += line;
     }
     filestream.close(); 
+    
     return str;
 }
