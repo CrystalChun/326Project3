@@ -67,7 +67,8 @@ void replaceString(string document, string replace, string replaceWith) {
     while(loc != string::npos) {
         document.replace(loc, replace.length(), replaceWith);
         count ++;
-        loc = document.find(replace);
+        loc += replace.length();
+        loc = document.find(replace, loc);
     }
   
     while(count == 0) {
