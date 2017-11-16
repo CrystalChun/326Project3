@@ -82,6 +82,7 @@ void replaceString(string document, string replace, string replaceWith) {
 
     write(document);
 }
+
 /**
  * Writes the specified document to file.
  * @param document The string object of the document
