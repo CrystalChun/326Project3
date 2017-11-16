@@ -21,7 +21,8 @@ int main(int argc, const char* argv[]) {
 
         cout << "Enter the string to replace: ";
         string replace;
-        cin >> replace;
+        string line;
+        getline(cin, replace);
         cout << endl;
         
         if(replace.compare("!wq") == 0) {
@@ -31,12 +32,11 @@ int main(int argc, const char* argv[]) {
         
         cout << "Enter the string to replace with: ";
         string replaceWith;
-        cin >> replaceWith;
+        getline(cin, replaceWith);
         cout << endl;
 
         int pid = fork();
         wait(NULL);
-
         
         if(pid == 0) {
             // In child process
@@ -44,6 +44,7 @@ int main(int argc, const char* argv[]) {
             
             inProgram = false;
         } else if (pid > 0 ) { // In parent process
+            cin.clear();
         } else {
             cout << "Error forking" << endl;
         }
@@ -67,6 +68,7 @@ void replaceString(string document, string replace, string replaceWith) {
     while(loc != string::npos) {
         document.replace(loc, replace.length(), replaceWith);
         count ++;
+
         loc += replace.length();
         loc = document.find(replace, loc);
     }
